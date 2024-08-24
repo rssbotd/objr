@@ -11,7 +11,7 @@ name = "objr"
 description = "objects runtime"
 version = "150"
 authors = [
-    {name = "xobjectz", email = "objx@proton.me"},
+    {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
 readme = "README.rst"
 license = {text="Public Domain"}
@@ -34,14 +34,8 @@ classifiers = [
 
 
 [tool.setuptools]
-script-files = [
-    "bin/objr",
-    "bin/objrd",
-    "bin/objrsh"
-]
 packages = [
     'objr',
-    'objr.modules'
 ]
 zip-safe=true
 
