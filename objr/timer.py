@@ -9,11 +9,10 @@ import time
 import threading
 
 
-from objx import Object
-from objr.thread import launch, named
+from .thread import launch, named
 
 
-class Timer(Object):
+class Timer:
 
     "Timer"
 

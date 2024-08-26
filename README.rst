@@ -5,7 +5,7 @@ NAME
 
 ::
 
-    OBJR - objects reactor
+    OBJR - objects runtime
 
 
 SYNOPSIS
@@ -28,11 +28,12 @@ DESCRIPTION
 
 ::
 
-    OBJR is a threaded, defer exceptions for later, keep on running callback engine.
+    OBJR is a threaded, defer exceptions for later, keep on running
+    callback engine.
 
 
 COPYRIGHT
 
 ::
 
-    OBJR is Public Domain
+    OBJR is Public Domain.
