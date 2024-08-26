@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=R0902,W0718
+# pylint: disable=R0902,R0911,W0718
 
 
 "threads"
@@ -8,11 +8,10 @@
 import queue
 import threading
 import time
+import types as rtypes
 
 
 from .errors import later
-from .event  import Event
-from .utils  import named
 
 
 rpr = object.__repr__
@@ -55,9 +54,28 @@ class Thread(threading.Thread):
             self._result = func(*args)
         except Exception as ex:
             later(ex)
-            for arg in args:
-                if isinstance(arg, Event):
-                    arg.ready()
+            try:
+                args[0].ready()
+            except (IndexError, AttributeError):
+                pass
+
+
+def named(obj):
+    "return a full qualified name of an object/function/module."
+    if isinstance(obj, rtypes.ModuleType):
+        return obj.__name__
+    typ = type(obj)
+    if '__builtins__' in dir(typ):
+        return obj.__name__
+    if '__self__' in dir(obj):
+        return f'{obj.__self__.__class__.__name__}.{obj.__name__}'
+    if '__class__' in dir(obj) and '__name__' in dir(obj):
+        return f'{obj.__class__.__name__}.{obj.__name__}'
+    if '__class__' in dir(obj):
+        return f"{obj.__class__.__module__}.{obj.__class__.__name__}"
+    if '__name__' in dir(obj):
+        return f'{obj.__class__.__name__}.{obj.__name__}'
+    return None
 
 
 def launch(func, *args, **kwargs):

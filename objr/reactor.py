@@ -10,8 +10,7 @@ import threading
 import _thread
 
 
-from objx.face   import Object
-from objr.thread import launch
+from .thread import launch
 
 
 class Reactor:
@@ -19,14 +18,14 @@ class Reactor:
     "Reactor"
 
     def __init__(self):
-        self.cbs      = Object()
+        self.cbs      = {}
         self.queue    = queue.Queue()
         self.stopped  = threading.Event()
 
     def callback(self, evt):
         "call callback based on event type."
         evt.orig = repr(self)
-        func = getattr(self.cbs, evt.type, None)
+        func = self.cbs.get(evt.type, None)
         if not func:
             evt.ready()
             return
@@ -54,7 +53,7 @@ class Reactor:
 
     def register(self, typ, cbs):
         "register callback for a type."
-        setattr(self.cbs, typ, cbs)
+        self.cbs[typ] = cbs
 
     def start(self):
         "start the event loop."
