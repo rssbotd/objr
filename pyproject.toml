@@ -25,9 +25,9 @@ classifiers = [
 
 
 [project.urls]
-"home" = "https://pypi.org/project/objr"
-"bugs" = "https://github.com/xobjectz/objr/issues"
-"source" = "https://github.com/xobjectz/objr"
+"home" = "https://pypi.org/rssbotd/objr"
+"bugs" = "https://github.com/rssbotd/objr/issues"
+"source" = "https://github.com/rssbotd/objr"
 
 
 [tool.setuptools]
