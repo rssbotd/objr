@@ -19,20 +19,19 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from objr.face import *
+from objr import *
+from objw.workdir import Workdir, skel
+from objz import *
 
 
-from objr import modules
-from objr import user
+from objx import *
 
 
 if os.path.exists("mods"):
     import mods as MODS
+    MODS.rss.DEBUG = True
 else:
     MODS = None
-
-
-modules.rss.DEBUG = True
 
 
 LAP = 1
@@ -40,7 +39,6 @@ NRS = 1
 NRCOMMAND = 1
 PERCALL   = 1
 STARTTIME = time.time()
-CLI.out   = print
 
 
 Cfg         = Default()
@@ -52,7 +50,7 @@ Cfg.skip    = ["debug",]
 Cfg.wdr     = ".test"
 
 
-Persist.workdir = Cfg.wdr
+Workdir.wdr = Cfg.wdr
 
 
 events = []
@@ -76,9 +74,14 @@ param.tdo = ["mekker"]
 param.ver = [""]
 
 
-class CLI(CLI):
+class CLI(Client):
 
     "command line interface."
+
+    def __init__(self):
+        Client.__init__(self)
+        self.register("command", command)
+        self.out = print
 
     def raw(self, txt):
         if "v" in Cfg.opts:
@@ -138,7 +141,7 @@ def main():
     "main"
     Logging.out = Errors.out = print
     Cfg.dis = Cfg.sets.dis
-    Cfg.mod = ",".join(modnames(modules, user, MODS))
+    Cfg.mod = ",".join(modnames(MODS))
     if "v" in Cfg.opts:
         dte = " ".join(time.ctime(time.time()).replace("  ", " ").split()[1:])
         print(f'{dte} {Cfg.name.upper()} {Cfg.opts.upper()} {Cfg.mod.upper()}'.replace("  ", " "))
