@@ -9,12 +9,15 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "objr"
 description = "objects runtime"
-version = "152"
+version = "153"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
 readme = "README.rst"
 license = {text="Public Domain"}
+dependencies = [
+    "objt",
+]
 classifiers = [ 
     'Development Status :: 3 - Alpha',
     'License :: Public Domain',
