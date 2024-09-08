@@ -1,4 +1,4 @@
-grep -R objr objr
+#grep -R objr objr
 grep -R "print(" objr
 grep -R __import__ objr
 grep -R importlib objr
