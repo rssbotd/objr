@@ -18,8 +18,8 @@ INSTALL
 
 DESCRIPTION
 
-    OBJR is a threaded, defer exceptions for later, keep on running
-    callback engine.
+    OBJR is a threaded, defer exceptions for later, keep
+    on running callback engine.
 
 
 COPYRIGHT
@@ -32,10 +32,12 @@ COPYRIGHT
 from . import reactor
 
 
-from .reactor  import *
+from .event   import *
+from .reactor import *
 
 
 def __dir__():
     return (
-        'Reactor',
+        'Event',
+        'Reactor'
     )
