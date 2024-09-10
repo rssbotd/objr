@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "objr"
 description = "objects runtime"
-version = "156"
+version = "157"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
