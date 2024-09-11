@@ -37,5 +37,8 @@ from .reactor import *
 
 def __dir__():
     return (
+        'Errors',
         'Reactor',
+        'errors',
+        'later'
     )
