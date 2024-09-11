@@ -22,31 +22,31 @@ class Errors:
     errors = []
 
     @staticmethod
-    def format(exc):
+    def format(excp):
         "format an exception"
-        res = ""
+        result = ""
         stream = io.StringIO(
                              traceback.print_exception(
-                                                       type(exc),
-                                                       exc,
-                                                       exc.__traceback__
+                                                       type(excp),
+                                                       excp,
+                                                       excp.__traceback__
                                                       )
                            )
         for line in stream.readlines():
-            res += line + "\n"
-        return res
-
-
-def errors(outer):
-    "display errors."
-    for exc in Errors.errors:
-        outer(Errors.format(exc))
+            result += line + "\n"
+        return result
 
 
 def later(exc):
     "add an exception"
     excp = exc.with_traceback(exc.__traceback__)
     Errors.errors.append(excp)
+
+
+def errors(outer):
+    "display more errors."
+    for exc in Errors.errors:
+        outer(Errors.format(exc))
 
 
 "reactor"
