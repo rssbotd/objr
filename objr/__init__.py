@@ -32,12 +32,10 @@ COPYRIGHT
 from . import reactor
 
 
-from .event   import *
 from .reactor import *
 
 
 def __dir__():
     return (
-        'Event',
-        'Reactor'
+        'Reactor',
     )

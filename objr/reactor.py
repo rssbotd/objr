@@ -10,9 +10,6 @@ import threading
 import _thread
 
 
-from objt import launch
-
-
 class Reactor:
 
     "Reactor"
@@ -24,15 +21,12 @@ class Reactor:
 
     def callback(self, evt):
         "call callback based on event type."
-        evt.orig = repr(self)
         func = self.cbs.get(evt.type, None)
         if not func:
-            evt.ready()
             return
         if "target" in dir(func) and func.target not in str(func).lower():
-            evt.ready()
             return
-        evt._thr = launch(func, self, evt)
+        func(self, evt)
 
     def loop(self):
         "proces events until interrupted."
@@ -57,7 +51,7 @@ class Reactor:
 
     def start(self):
         "start the event loop."
-        launch(self.loop)
+        self.loop()
 
     def stop(self):
         "stop the event loop."

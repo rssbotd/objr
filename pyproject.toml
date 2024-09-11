@@ -9,15 +9,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "objr"
 description = "objects runtime"
-version = "158"
+version = "160"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
 readme = "README.rst"
 license = {text="Public Domain"}
-dependencies = [
-    "objt",
-]
 classifiers = [ 
     'Development Status :: 3 - Alpha',
     'License :: Public Domain',
@@ -36,7 +33,6 @@ classifiers = [
 [tool.setuptools]
 packages = [
     'objr',
-    'objx'
 ]
 zip-safe=true
 
