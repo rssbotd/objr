@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=W0212,W0718
+# pylint: disable=R0903,W0105,W0212,W0613,W0718
 
 
 "reactor"
@@ -99,13 +99,36 @@ class Reactor:
         self.stopped.set()
 
 
+class Client(Reactor):
+
+    "Client"
+
+    def display(self, evt):
+        "display event results."
+        for text in evt.result:
+            self.say(evt.channel, text)
+
+    def dosay(self, channel, txt):
+        "make say."
+        self.raw(txt)
+
+    def say(self, channel, txt):
+        "echo on verbose."
+        self.raw(txt)
+
+    def raw(self, txt):
+        "print to screen."
+        raise NotImplementedError
+
+
 "interface"
 
 
 def __dir__():
     return (
+        'Client',
         'Errors',
         'Reactor',
-        'errors',
-        'later'
+        'later',
+        'errors'
     )
