@@ -10,6 +10,9 @@ import threading
 import _thread
 
 
+from .errors import later
+
+
 class Reactor:
 
     "Reactor"
@@ -33,6 +36,8 @@ class Reactor:
                 self.callback(evt)
             except (KeyboardInterrupt, EOFError):
                 _thread.interrupt_main()
+            except Exception as ex:
+                later(ex)
 
     def poll(self):
         "function to return event."
