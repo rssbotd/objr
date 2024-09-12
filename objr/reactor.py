@@ -8,6 +8,7 @@
 import io
 import queue
 import threading
+import time
 import traceback
 import _thread
 
@@ -76,6 +77,7 @@ class Reactor:
             except (KeyboardInterrupt, EOFError):
                 _thread.interrupt_main()
             except Exception as ex:
+                time.sleep(1.0)
                 later(ex)
 
     def poll(self):
