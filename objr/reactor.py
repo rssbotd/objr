@@ -88,6 +88,12 @@ class Reactor:
         "put event into the queue."
         self.queue.put_nowait(evt)
 
+    def ready(self):
+        while 1:
+            if self.queue.qsize() == 0:
+                break
+            time.sleep(0.1)
+
     def register(self, typ, cbs):
         "register callback for a type."
         self.cbs[typ] = cbs
