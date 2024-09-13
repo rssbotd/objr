@@ -15,9 +15,6 @@ import types as rtypes
 rpr = object.__repr__
 
 
-from .errors import later
-
-
 class Thread(threading.Thread):
 
     "Thread"
@@ -84,8 +81,14 @@ def launch(func, *args, **kwargs):
     return thread
 
 
+from .errors import Errors, errors, later
+
+
 def __dir__():
     return (
+        'Errors',
         'Thread',
+        'errors',
+        'later',
         'launch'
     )
