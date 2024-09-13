@@ -1,4 +1,5 @@
 # This file is placed in the Public Domain.
+# pylint: disable=W0718
 
 
 """reactor
@@ -76,6 +77,7 @@ class Reactor:
         self.queue.put_nowait(evt)
 
     def ready(self):
+        "wait until queue is empty."
         while 1:
             if self.queue.qsize() == 0:
                 break
@@ -94,7 +96,34 @@ class Reactor:
         self.stopped.set()
 
 
+class Client(Reactor):
+
+    "Client"
+
+    out = None
+
+    def __init__(self, outer=None):
+        Reactor.__init__(self)
+        self.out = outer
+
+    def display(self, evt):
+        "show results into a channel."
+        for txt in evt.result:
+            self.say(evt.channel, txt)
+
+    def say(self, _channel, txt):
+        "echo on verbose."
+        self.raw(txt)
+
+    def raw(self, txt):
+        "print to screen."
+        if self.out:
+            txt = txt.encode('utf-8', 'replace').decode()
+            self.out(txt)
+
+
 def __dir__():
     return (
-        'Reactor',
+        'Client',
+        'Reactor'
     )
