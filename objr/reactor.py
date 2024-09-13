@@ -13,44 +13,7 @@ import traceback
 import _thread
 
 
-"errors"
-
-
-class Errors:
-
-    "Errors"
-
-    errors = []
-
-    @staticmethod
-    def format(excp):
-        "format an exception"
-        result = ""
-        stream = io.StringIO(
-                             traceback.print_exception(
-                                                       type(excp),
-                                                       excp,
-                                                       excp.__traceback__
-                                                      )
-                           )
-        for line in stream.readlines():
-            result += line + "\n"
-        return result
-
-
-def later(exc):
-    "add an exception"
-    excp = exc.with_traceback(exc.__traceback__)
-    Errors.errors.append(excp)
-
-
-def errors(outer):
-    "display more errors."
-    for exc in Errors.errors:
-        outer(Errors.format(exc))
-
-
-"reactor"
+from .thread import launch
 
 
 class Reactor:
@@ -66,7 +29,7 @@ class Reactor:
         "call callback based on event type."
         func = self.cbs.get(evt.type, None)
         if func:
-            func(self, evt)
+            evt.thr = launch(func, self, evt)
 
     def loop(self):
         "proces events until interrupted."
@@ -100,43 +63,14 @@ class Reactor:
 
     def start(self):
         "start the event loop."
-        self.loop()
+        launch(self.loop)
 
     def stop(self):
         "stop the event loop."
         self.stopped.set()
 
 
-class Client(Reactor):
-
-    "Client"
-
-    def display(self, evt):
-        "display event results."
-        for text in evt.result:
-            self.say(evt.channel, text)
-
-    def dosay(self, channel, txt):
-        "make say."
-        self.raw(txt)
-
-    def say(self, channel, txt):
-        "echo on verbose."
-        self.raw(txt)
-
-    def raw(self, txt):
-        "print to screen."
-        raise NotImplementedError
-
-
-"interface"
-
-
 def __dir__():
     return (
-        'Client',
-        'Errors',
         'Reactor',
-        'later',
-        'errors'
     )

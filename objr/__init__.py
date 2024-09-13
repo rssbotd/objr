@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"""objects runtime
+"""objects reactor
 
 
 SYNOPSIS
@@ -29,16 +29,24 @@ COPYRIGHT
 """
 
 
-from . import reactor
+from . import broker, client, errors, event, reactor, thread
 
 
+from .broker  import *
+from .client  import *
+from .errors  import *
+from .event   import *
 from .reactor import *
+from .thread  import *
 
 
 def __dir__():
     return (
+        'Broker',
+        'Client',
         'Errors',
         'Reactor',
+        'Thread',
         'errors',
         'later'
     )
