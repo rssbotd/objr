@@ -8,8 +8,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "objr"
-description = "objects runtime"
-version = "162"
+description = "objects reactor"
+version = "170"
 authors = [
     {name = "Bart Thate", email = "rssbotd@gmail.com"},
 ]
@@ -36,11 +36,6 @@ packages = [
 ]
 zip-safe=true
 
-
-[tool.setuptools.data-files]
-"share/doc/objr" = [
-    "README.rst"
-]
 
 [tool.setuptools.exclude-package-data]
 "*" = [
