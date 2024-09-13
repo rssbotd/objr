@@ -15,6 +15,9 @@ import types as rtypes
 rpr = object.__repr__
 
 
+from .errors import later
+
+
 class Thread(threading.Thread):
 
     "Thread"
